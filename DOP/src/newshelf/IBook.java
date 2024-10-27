@@ -1,5 +1,5 @@
 package newshelf;
 
-public interface IBook {
-
+public sealed interface IBook permits Comic2, Fiction2, TextBook2 {
+    String getTitle();
 }
