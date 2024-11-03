@@ -3,18 +3,28 @@ package newshelf;
 import oldshelf.FictionType;
 
 public class NewSelection {
-	public static String getAgeOrTitle(Object o) {
-        if (o instanceof IBook book) {
-            if (o instanceof Comic2 comic) {
-                return comic.title();
-            } else if (o instanceof Fiction2 fiction) {
-                return fiction.name();
-            } else if (o instanceof TextBook2 textBook) {
-                return textBook.subject();
-            }
-        }
-        return "";
+	// public static String getAgeOrTitle(Object o) {
+    //     return switch (o) {
+    //         case Comic2 comic when comic.title() != null -> comic.title();
+    //         case Fiction2 fiction when fiction.name() != null -> fiction.name();
+    //         case TextBook2 textBook when textBook.subject() != null -> textBook.subject();
+    //         case IBook book -> "";  // General fallback for IBook types if needed
+    //         default -> "";          // For objects that aren't IBook instances
+    //     };
+    // }
+
+    public static String getAgeOrTitle(Object o) {
+        return switch (o) {
+            case Comic2(String title, int age) when title != null -> title;
+            case Fiction2(String title, String name, FictionType type) when name != null -> name;
+            case TextBook2(String title, String subject) when subject != null -> subject;
+            case IBook book -> ""; // Fallback for other IBook types
+            default -> "";         // Fallback for non-IBook types
+        };
     }
+    
+    
+    
 
 	public static void main(String[] args) {
         // Test cases for NewSelection

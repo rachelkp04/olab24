@@ -4,17 +4,15 @@ public class OldSelection1 {
 
 	
 	public static String getAgeOrTitle(Object o) {
-        if (o instanceof Book1) {
-            if (o instanceof Comic1) {
-                return ((Comic1) o).getTitle();
-            } else if (o instanceof Fiction1) {
-                return ((Fiction1) o).getName();
-            } else if (o instanceof TextBook1) {
-                return ((TextBook1) o).getSubject();
-            }
-        }
-        return "";
+        return switch (o) {
+            case Comic1 comic -> comic.getTitle();
+            case Fiction1 fiction -> fiction.getName();
+            case TextBook1 textBook -> textBook.getSubject();
+            case Book1 book -> "";  // Covers any other `Book1` type, if needed
+            default -> "";          // Covers cases where `o` is not a `Book1`
+        };
     }
+    
 
 	public static void main(String[] args) {
         
